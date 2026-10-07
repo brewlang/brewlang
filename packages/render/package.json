@@ -1,0 +1,41 @@
+{
+  "name": "@brewlang/render",
+  "version": "0.0.1",
+  "description": "Render Brewlang coffee recipes as HTML cards",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./element": {
+      "types": "./dist/element.d.ts",
+      "default": "./dist/element.js"
+    },
+    "./brew.css": "./brew.css"
+  },
+  "files": [
+    "dist",
+    "brew.css"
+  ],
+  "sideEffects": [
+    "./dist/element.js",
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brewlang/brewlang.git",
+    "directory": "packages/render"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "brewlang": "0.0.1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  // Compile the library only: tests stay type-checked by tsconfig.json
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}

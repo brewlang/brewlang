@@ -1,0 +1,289 @@
+/*
+ * Brewlang recipe cards, as rendered by @brewlang/render.
+ * Restyle them with the --brew-* variables, on .brew-card or any parent; data-theme="dark" switches the palette.
+ * The fonts are not loaded here: the defaults fall back to the system's when Newsreader, Instrument Sans
+ * and IBM Plex Mono are not on the page.
+ */
+
+.brew-card {
+  --brew-bg: oklch(0.995 0.003 85);
+  --brew-ink: oklch(0.23 0.012 60);
+  --brew-muted: oklch(0.47 0.012 60);
+  --brew-faint: oklch(0.68 0.012 70);
+  --brew-rule: oklch(0.87 0.012 80);
+  --brew-rule-soft: oklch(0.92 0.01 80);
+  --brew-soft: oklch(0.955 0.01 85);
+  --brew-accent: oklch(0.56 0.15 38);
+  --brew-qual: oklch(0.42 0.1 155);
+  --brew-qual-line: oklch(0.8 0.04 155);
+  --brew-font-display: "Newsreader", Georgia, serif;
+  --brew-font-body: "Instrument Sans", system-ui, sans-serif;
+  --brew-font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --brew-radius: 6px;
+
+  container-type: inline-size;
+  box-sizing: border-box;
+  background: var(--brew-bg);
+  color: var(--brew-ink);
+  border: 1px solid var(--brew-rule);
+  border-radius: var(--brew-radius);
+  padding: 36px 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font: 15px/1.45 var(--brew-font-body);
+}
+
+.brew-card[data-theme="dark"] {
+  --brew-bg: oklch(0.225 0 0);
+  --brew-ink: oklch(0.94 0 0);
+  --brew-muted: oklch(0.7 0 0);
+  --brew-faint: oklch(0.5 0 0);
+  --brew-rule: oklch(0.31 0 0);
+  --brew-rule-soft: oklch(0.27 0 0);
+  --brew-soft: oklch(0.26 0 0);
+  --brew-accent: oklch(0.76 0.13 45);
+  --brew-qual: oklch(0.8 0.1 155);
+  --brew-qual-line: oklch(0.45 0.06 155);
+}
+
+.brew-card *,
+.brew-card *::before {
+  box-sizing: border-box;
+}
+
+.brew-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.brew-kicker {
+  font: 400 12px var(--brew-font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brew-accent);
+}
+.brew-title {
+  margin: 0;
+  font: 400 38px/1.1 var(--brew-font-display);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.brew-specs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--brew-ink);
+  border-bottom: 1px solid var(--brew-rule);
+}
+.brew-spec {
+  padding: 14px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.brew-spec dt {
+  font: 500 11px var(--brew-font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brew-muted);
+}
+.brew-spec dd {
+  margin: 0;
+  font: 400 30px/1 var(--brew-font-display);
+  font-variant-numeric: tabular-nums;
+}
+.brew-spec .brew-accent {
+  color: var(--brew-accent);
+}
+
+.brew-extras {
+  margin: -8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  font-size: 14px;
+}
+.brew-extras > span {
+  white-space: nowrap;
+}
+.brew-extras strong {
+  font-weight: 600;
+}
+.brew-muted {
+  color: var(--brew-muted);
+}
+
+.brew-prep {
+  padding: 16px 18px;
+  background: var(--brew-soft);
+  border-radius: calc(var(--brew-radius) - 2px);
+}
+.brew-prep h3 {
+  margin: 0 0 10px;
+  font: italic 400 17px var(--brew-font-display);
+}
+.brew-prep ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.brew-prep li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brew-prep li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--brew-muted);
+}
+
+.brew-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.brew-step {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr) 120px;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--brew-rule-soft);
+  align-items: start;
+}
+.brew-time {
+  font: 600 16px var(--brew-font-mono);
+  font-variant-numeric: tabular-nums;
+  padding-top: 1px;
+}
+.brew-untimed {
+  color: var(--brew-muted);
+}
+.brew-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.brew-step-title {
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.brew-unknown {
+  color: var(--brew-muted);
+  font: italic 400 16px var(--brew-font-mono);
+}
+.brew-badge {
+  font: 500 11px var(--brew-font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px dashed var(--brew-faint);
+  color: var(--brew-muted);
+  border-radius: 3px;
+}
+.brew-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--brew-muted);
+}
+.brew-chip {
+  font: 400 12px var(--brew-font-mono);
+  padding: 2px 8px;
+  border: 1px solid var(--brew-qual-line);
+  color: var(--brew-qual);
+  border-radius: 999px;
+}
+.brew-comment {
+  font: italic 400 15px var(--brew-font-display);
+  color: var(--brew-muted);
+}
+.brew-water {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+.brew-bar {
+  height: 6px;
+  background: var(--brew-rule-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.brew-bar-fill {
+  height: 100%;
+  background: var(--brew-accent);
+}
+.brew-bar-label {
+  font: 400 12px var(--brew-font-mono);
+  color: var(--brew-muted);
+  text-align: right;
+}
+
+.brew-target {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font: italic 400 18px var(--brew-font-display);
+}
+.brew-target-time {
+  font: 600 16px var(--brew-font-mono);
+  font-style: normal;
+}
+
+.brew-foot {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--brew-rule);
+  font: 500 36px var(--brew-font-display);
+}
+
+/* A narrow card, whatever the window: specs in two columns, the water bar under the step */
+@container (max-width: 520px) {
+  .brew-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 0;
+  }
+  .brew-spec {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--brew-rule);
+  }
+  .brew-spec dd {
+    font-size: 26px;
+  }
+  .brew-title {
+    font-size: 28px;
+  }
+  .brew-step {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 0;
+  }
+  .brew-water {
+    grid-column: 2;
+  }
+  .brew-bar {
+    height: 4px;
+  }
+  .brew-bar-label {
+    display: none;
+  }
+}

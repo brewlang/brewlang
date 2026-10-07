@@ -51,7 +51,7 @@ A `.brew` file has optional YAML frontmatter, a header line, then one step per l
 - **Units:** dose in `g` or `oz`; water in `g`, `ml`, `oz` or `floz`; temperature in `°C` or `°F`. A recipe sticks to one unit per measure, and nothing is converted. Ranges are accepted: `90-93°C`, `40-50g`.
 - **Brewers:** `@V60`, `@Kalita`, `@Melitta`, `@Chemex`, `@Origami`, `@UFO`, `@Phin`, `@Switch`, `@Clever`, `@Pulsar`, `@AeroPress`, `@FrenchPress` and `@Siphon`, matched ignoring case. Any other name is accepted without action checks.
 
-See [`examples/`](examples/) for real recipes rewritten in Brewlang.
+See [`examples/`](https://github.com/brewlang/brewlang/tree/main/examples) for real recipes rewritten in Brewlang.
 
 ## CLI
 
@@ -160,12 +160,16 @@ Amounts are rounded the way a scale shows them: to 1 g or 1 ml, and to 0.1 oz or
 
 ## Development
 
+This package lives in the [brewlang monorepo](https://github.com/brewlang/brewlang), next to [`@brewlang/render`](../render). From the repository root:
+
 ```sh
 npm install
-npx vitest run     # the tests, once (npm test watches)
+npm test           # the tests of every package, once
 npm run typecheck
-npm run build      # compiles to dist/
+npm run build      # compiles each package to its dist/
 ```
+
+In this folder, `npx vitest` watches the language tests only.
 
 ## License
 

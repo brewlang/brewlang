@@ -4,7 +4,7 @@ import type { Diagnostic } from "../src/index.js";
 import { check, toJson } from "../src/index.js";
 import { validate } from "./schema.js";
 
-const examples = import.meta.glob<string>("../examples/*.brew", { query: "?raw", import: "default", eager: true });
+const examples = import.meta.glob<string>("../../../examples/*.brew", { query: "?raw", import: "default", eager: true });
 
 /// The JSON of a source that must check without errors
 const json = (source: string) => {
