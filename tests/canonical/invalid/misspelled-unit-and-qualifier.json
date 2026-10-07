@@ -1,0 +1,14 @@
+[
+  {
+    "severity": "error",
+    "message": "Unknown unit 'C'. Did you mean '94°C'?",
+    "line": 1,
+    "column": 10
+  },
+  {
+    "severity": "error",
+    "message": "Unknown qualifier 'blom'. Did you mean 'bloom'?",
+    "line": 2,
+    "column": 10
+  }
+]

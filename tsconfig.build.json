@@ -1,0 +1,11 @@
+{
+  // Compile the library and the CLI: tests stay type-checked by tsconfig.json
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": []
+}

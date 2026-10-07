@@ -1,0 +1,88 @@
+{
+  "brewlang": "0.1",
+  "metadata": {
+    "title": "Every JSON field",
+    "version": "1"
+  },
+  "brewer": "Melitta",
+  "coffee": {
+    "value": 0.5,
+    "unit": "ounce"
+  },
+  "water": {
+    "min": 8,
+    "max": 9,
+    "unit": "fluid_ounce"
+  },
+  "water_temp": {
+    "min": 195,
+    "max": 205,
+    "unit": "fahrenheit"
+  },
+  "header_comment": "header comment",
+  "grind": {
+    "size": "medium_fine",
+    "comment": "grind comment"
+  },
+  "steps": [
+    {
+      "kind": "comment",
+      "text": "a comment alone on its line"
+    },
+    {
+      "kind": "action",
+      "name": "rinse"
+    },
+    {
+      "kind": "pour",
+      "add_water": {
+        "value": 2,
+        "unit": "fluid_ounce"
+      },
+      "action_duration_s": 15,
+      "bloom": true
+    },
+    {
+      "kind": "action",
+      "name": "wait",
+      "action_duration_s": 45
+    },
+    {
+      "kind": "temp",
+      "water_temp": {
+        "value": 190,
+        "unit": "fahrenheit"
+      },
+      "comment": "cooler from here"
+    },
+    {
+      "kind": "pour",
+      "add_water": {
+        "value": 3,
+        "unit": "fluid_ounce"
+      },
+      "technique": "pulse"
+    },
+    {
+      "kind": "pour",
+      "to_water": {
+        "min": 8,
+        "max": 9,
+        "unit": "fluid_ounce"
+      },
+      "technique": "center"
+    },
+    {
+      "kind": "action",
+      "name": "wait",
+      "action_duration_s": 60,
+      "duration_unit": "m"
+    },
+    {
+      "kind": "action",
+      "name": "drawdown",
+      "action_duration_s": 210,
+      "duration_unit": "m:ss"
+    }
+  ]
+}

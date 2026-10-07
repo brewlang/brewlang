@@ -1,0 +1,19 @@
+---
+title: Inverted AeroPress by Blue Bottle
+source: https://honestcoffeeguide.com/brew-recipes/blue-bottle-inverted-aeropress/
+filter: paper
+---
+
+@AeroPress 15g 200g 93°C
+grind medium-fine
+
+/invert
+30g bloom
+/stir -- 3 or 4 times, until all the coffee is wet
+/wait
+200g
+/rinse -- the paper filter in the cap, while it brews
+/flip -- lock the cap, push the air out, then flip onto the cup
+/press ~30s -- gently, with the weight of your arms only
+
+target 2:40

@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Write every temperature in '°C' like the first one, not in '°F'",
+    "line": 3,
+    "column": 1
+  }
+]

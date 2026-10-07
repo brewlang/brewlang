@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "The recipe already has a target on line 4: keep only one",
+    "line": 5,
+    "column": 1
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Write every water amount in 'g' like the first one, not in 'ml'",
+    "line": 3,
+    "column": 6
+  }
+]

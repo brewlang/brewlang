@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Weigh the dose in g or oz, not 'tbsp'",
+    "line": 1,
+    "column": 6
+  }
+]

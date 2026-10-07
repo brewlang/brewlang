@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Move 'grind' right after the header: it sets the grind for the whole recipe",
+    "line": 3,
+    "column": 1
+  }
+]

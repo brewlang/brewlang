@@ -1,0 +1,11 @@
+{
+  "dose": { "value": 24, "unit": "g" },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "message": "Amounts ×1.6, times unchanged: plan a coarser grind and a later finish",
+      "line": 1,
+      "column": 6
+    }
+  ]
+}

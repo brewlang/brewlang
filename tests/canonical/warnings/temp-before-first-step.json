@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "warning",
+    "message": "This temperature applies from the start: put it in the header instead, like '@V60 15g 250g 90°C'",
+    "line": 2,
+    "column": 1
+  }
+]

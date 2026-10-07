@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "The header announces 250g but the pours end at 240g. Make them match",
+    "line": 1,
+    "column": 10
+  }
+]

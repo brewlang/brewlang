@@ -1,0 +1,18 @@
+---
+title: "Every JSON field"
+# a YAML comment, left out silently
+version: 1
+---
+
+@Melitta 0.5oz 8-9floz 195-205°F -- header comment
+grind medium-fine -- grind comment
+
+-- a comment alone on its line
+/rinse
++2floz ~15s bloom
+/wait ~45s
+190°F -- cooler from here
++3floz pulse
+8-9floz center
+/wait ~1m
+/drawdown ~3:30

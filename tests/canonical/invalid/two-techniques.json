@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "A pour has only one technique: choose spiral or center",
+    "line": 3,
+    "column": 1
+  }
+]

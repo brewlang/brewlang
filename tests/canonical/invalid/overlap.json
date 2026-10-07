@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "This pour lasts until 0:50, after the next step at 0:45. Shorten it or start the next step later",
+    "line": 2,
+    "column": 10
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Put the temperature alone on its line, before this pour: it applies to every following step",
+    "line": 3,
+    "column": 11
+  }
+]

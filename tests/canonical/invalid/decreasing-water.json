@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "The scale is already at 150g: pour to a higher total, or add water with '+'",
+    "line": 3,
+    "column": 6
+  }
+]

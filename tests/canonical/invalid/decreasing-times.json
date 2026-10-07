@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "This step starts at 0:45, before the previous one at 1:30",
+    "line": 4,
+    "column": 1
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "water": { "value": 500, "unit": "g" },
+  "diagnostics": [
+    {
+      "severity": "error",
+      "message": "This recipe gives no total water: scale it by its dose instead",
+      "line": 1,
+      "column": 1
+    }
+  ]
+}

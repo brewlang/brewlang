@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "'/open' only works with @Switch, @Clever or @Pulsar: remove it or change the brewer",
+    "line": 4,
+    "column": 1
+  }
+]

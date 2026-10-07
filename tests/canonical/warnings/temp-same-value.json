@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "warning",
+    "message": "The temperature is already 94°C: remove this line",
+    "line": 3,
+    "column": 1
+  }
+]

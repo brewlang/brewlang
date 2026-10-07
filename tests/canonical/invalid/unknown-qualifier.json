@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "'swirl' is an action: write '/swirl' on its own line",
+    "line": 3,
+    "column": 11
+  }
+]

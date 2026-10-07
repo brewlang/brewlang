@@ -1,0 +1,11 @@
+{
+  "water": { "value": 50, "unit": "g" },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "message": "Amounts ×0.5, times unchanged: plan a finer grind and an earlier finish",
+      "line": 1,
+      "column": 6
+    }
+  ]
+}

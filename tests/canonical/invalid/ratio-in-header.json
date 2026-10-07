@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "Brewlang computes the ratio from the dose and the water: write the water instead, like '@V60 15g 240g'",
+    "line": 1,
+    "column": 10
+  }
+]

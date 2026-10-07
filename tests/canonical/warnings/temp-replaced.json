@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "warning",
+    "message": "The next temperature line replaces this one before any step: remove it",
+    "line": 3,
+    "column": 1
+  }
+]

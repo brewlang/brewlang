@@ -1,0 +1,85 @@
+{
+  "brewlang": "0.1",
+  "metadata": {
+    "title": "Chemex by James Hoffmann",
+    "source": "https://honestcoffeeguide.com/brew-recipes/james-hoffmann-chemex-recipe/",
+    "filter": "paper"
+  },
+  "brewer": "Chemex",
+  "coffee": {
+    "value": 30,
+    "unit": "gram"
+  },
+  "water": {
+    "value": 500,
+    "unit": "gram"
+  },
+  "water_temp": {
+    "value": 100,
+    "unit": "celsius"
+  },
+  "grind": {
+    "size": "medium"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "name": "rinse"
+    },
+    {
+      "kind": "pour",
+      "at_s": 0,
+      "to_water": {
+        "value": 80,
+        "unit": "gram"
+      },
+      "action_duration_s": 10,
+      "bloom": true,
+      "technique": "spiral",
+      "comment": "gentle circles, saturate all the coffee"
+    },
+    {
+      "kind": "pour",
+      "at_s": 45,
+      "to_water": {
+        "value": 300,
+        "unit": "gram"
+      },
+      "action_duration_s": 30,
+      "technique": "spiral"
+    },
+    {
+      "kind": "pour",
+      "at_s": 75,
+      "to_water": {
+        "value": 500,
+        "unit": "gram"
+      },
+      "action_duration_s": 30,
+      "technique": "spiral"
+    },
+    {
+      "kind": "action",
+      "name": "stir",
+      "at_s": 105,
+      "comment": "gently, once clockwise then once counter-clockwise"
+    },
+    {
+      "kind": "action",
+      "name": "swirl",
+      "at_s": 115,
+      "action_duration_s": 3,
+      "comment": "shake the brewer gently"
+    },
+    {
+      "kind": "action",
+      "name": "drawdown",
+      "at_s": 118
+    },
+    {
+      "kind": "target",
+      "at_s": 250,
+      "comment": "remove the filter and swirl the coffee before serving"
+    }
+  ]
+}

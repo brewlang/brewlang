@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "A temperature change has no time: write '90°C' alone on its line",
+    "line": 3,
+    "column": 1
+  }
+]

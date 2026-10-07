@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "error",
+    "message": "The grind is already set on line 2: keep only one 'grind' line",
+    "line": 4,
+    "column": 1
+  }
+]

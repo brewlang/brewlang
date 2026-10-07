@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "warning",
+    "message": "The @Switch valve starts open: add '/close' before the first step if the brew starts closed, or remove this '/open'",
+    "line": 4,
+    "column": 1
+  }
+]

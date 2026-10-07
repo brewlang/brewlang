@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "suggestion",
+    "message": "Remove '0:00': an action before the first pour is a preparation, done before starting the timer",
+    "line": 2,
+    "column": 1
+  }
+]

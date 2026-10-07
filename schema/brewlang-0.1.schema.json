@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Brewlang recipe",
+  "description": "A .brew recipe as JSON. Field names follow CoffeeJSON where the two formats overlap.",
+  "type": "object",
+  "required": ["brewlang", "brewer", "coffee", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "brewlang": { "const": "0.1", "description": "Version of this JSON format" },
+    "metadata": {
+      "description": "The frontmatter's 'key: value' lines, values kept as text",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "brewer": { "type": "string", "minLength": 1, "description": "Without the '@', named as in the registry when known" },
+    "coffee": { "$ref": "#/$defs/mass" },
+    "water": { "$ref": "#/$defs/water", "description": "Total water announced in the header" },
+    "water_temp": { "$ref": "#/$defs/temp", "description": "Starting temperature" },
+    "header_comment": { "type": "string" },
+    "grind": {
+      "type": "object",
+      "required": ["size"],
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "enum": ["extra_fine", "fine", "medium_fine", "medium", "medium_coarse", "coarse", "extra_coarse"]
+        },
+        "comment": { "type": "string" }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "In the written order, which is the order they run in",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/pour" },
+          { "$ref": "#/$defs/action" },
+          { "$ref": "#/$defs/tempChange" },
+          { "$ref": "#/$defs/target" },
+          { "$ref": "#/$defs/comment" }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "quantity": {
+      "description": "One value, or a range from min to max",
+      "type": "object",
+      "oneOf": [
+        { "required": ["value", "unit"], "not": { "anyOf": [{ "required": ["min"] }, { "required": ["max"] }] } },
+        { "required": ["min", "max", "unit"], "not": { "required": ["value"] } }
+      ],
+      "properties": {
+        "value": { "type": "number" },
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "mass": {
+      "$ref": "#/$defs/quantity",
+      "unevaluatedProperties": false,
+      "properties": { "unit": { "enum": ["gram", "ounce"] } }
+    },
+    "water": {
+      "$ref": "#/$defs/quantity",
+      "unevaluatedProperties": false,
+      "properties": { "unit": { "enum": ["gram", "ounce", "milliliter", "fluid_ounce"] } }
+    },
+    "temp": {
+      "$ref": "#/$defs/quantity",
+      "unevaluatedProperties": false,
+      "properties": { "unit": { "enum": ["celsius", "fahrenheit"] } }
+    },
+    "at_s": { "type": "number", "minimum": 0, "description": "Seconds from the start; absent = at the user's pace" },
+    "action_duration_s": { "type": "number", "minimum": 0 },
+    "duration_unit": {
+      "description": "The unit the author wrote the duration in, when not seconds: '~4m' or '~3:30'",
+      "enum": ["m", "m:ss"]
+    },
+    "pour": {
+      "type": "object",
+      "required": ["kind"],
+      "oneOf": [{ "required": ["to_water"] }, { "required": ["add_water"] }],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "pour" },
+        "at_s": { "$ref": "#/$defs/at_s" },
+        "to_water": { "$ref": "#/$defs/water", "description": "'150g': the total on the scale" },
+        "add_water": { "$ref": "#/$defs/water", "description": "'+60g': water to add" },
+        "action_duration_s": { "$ref": "#/$defs/action_duration_s" },
+        "duration_unit": { "$ref": "#/$defs/duration_unit" },
+        "bloom": { "const": true },
+        "technique": { "enum": ["spiral", "center", "pulse"] },
+        "comment": { "type": "string" }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["kind", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "action" },
+        "name": { "type": "string", "minLength": 1, "description": "Without the '/'; open vocabulary" },
+        "at_s": { "$ref": "#/$defs/at_s" },
+        "action_duration_s": { "$ref": "#/$defs/action_duration_s" },
+        "duration_unit": { "$ref": "#/$defs/duration_unit" },
+        "comment": { "type": "string" }
+      }
+    },
+    "tempChange": {
+      "type": "object",
+      "required": ["kind", "water_temp"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "temp" },
+        "water_temp": { "$ref": "#/$defs/temp", "description": "Applies to every following step" },
+        "comment": { "type": "string" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["kind", "at_s"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "target" },
+        "at_s": { "$ref": "#/$defs/at_s" },
+        "comment": { "type": "string" }
+      }
+    },
+    "comment": {
+      "type": "object",
+      "required": ["kind", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "comment" },
+        "text": { "type": "string" }
+      }
+    }
+  }
+}

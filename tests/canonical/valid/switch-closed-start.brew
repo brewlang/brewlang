@@ -1,0 +1,10 @@
+@Switch 15g 93°C
+grind medium-fine
+
+/close
+0:00 60g ~10s bloom
+0:45 150g ~15s spiral
+1:30 250g ~20s center
+2:00 /open
+
+target 3:00

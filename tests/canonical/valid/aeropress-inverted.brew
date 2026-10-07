@@ -1,0 +1,8 @@
+@AeroPress 15g 200g 85°C
+grind medium-fine
+
+/invert
+0:00 200g
+0:10 /stir
+1:30 /flip
+1:40 /press ~30s

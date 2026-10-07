@@ -1,0 +1,10 @@
+{
+  // The CLI is the only code allowed to use Node; the library stays checked without Node types
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["."],
+  "exclude": []
+}

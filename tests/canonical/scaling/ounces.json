@@ -1,0 +1,11 @@
+{
+  "factor": 1.5,
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "message": "Amounts ×1.5, times unchanged: plan a coarser grind and a later finish",
+      "line": 1,
+      "column": 6
+    }
+  ]
+}

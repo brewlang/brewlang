@@ -1,0 +1,4 @@
+@V60 15g 250g 94°C -- a wait without a duration lasts until the step is done
+50g bloom
+/wait
+250g

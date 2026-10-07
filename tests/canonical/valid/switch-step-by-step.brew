@@ -1,0 +1,21 @@
+---
+title: Switch hybride pas à pas
+version: 1
+filter: paper
+---
+
+@Switch 20g 300g 93°C
+grind medium-fine
+
+/rinse
+/close
+/level-bed
+60g ~10s bloom
+/swirl
+/wait ~45s
+180g ~20s spiral
+/wait ~1m
+/open
+90°C
+300g ~25s center
+/swirl

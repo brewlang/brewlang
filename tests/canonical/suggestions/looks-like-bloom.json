@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "suggestion",
+    "message": "This pour looks like a bloom: add 'bloom' if it is one",
+    "line": 2,
+    "column": 1
+  }
+]

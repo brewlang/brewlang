@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "warning",
+    "message": "Unknown action '/swril'. Did you mean '/swirl'?",
+    "line": 4,
+    "column": 1
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "suggestion",
+    "message": "This recipe mixes totals on the scale, like '150g', and water to add, like '+60g': check that each pour reads as intended",
+    "line": 3,
+    "column": 1
+  }
+]

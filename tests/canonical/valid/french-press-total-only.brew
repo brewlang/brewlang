@@ -1,0 +1,6 @@
+@FrenchPress 30g 480g 95°C
+grind coarse
+
+/stir
+/wait ~4m
+/press ~30s
