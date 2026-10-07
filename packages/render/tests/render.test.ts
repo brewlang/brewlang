@@ -10,10 +10,11 @@ title: V60 Guji
 filter: paper
 ---
 
-@V60 15g 250g 94°C
-grind medium-fine
+@V60 15g 250g 94°C -- off the boil
+grind medium-fine -- 700 µm
 
-/rinse
+/rinse -- preheat
+/level-bed
 0:00 50g ~10s bloom center -- gently
 0:45 150g ~15s spiral
 90°C
@@ -21,7 +22,7 @@ grind medium-fine
 2:00 /swril
 2:10 /wait
 
-target 3:00
+target 3:00 -- expect some variance
 `;
 
 /// The model of a source that must check without errors
@@ -42,12 +43,17 @@ group("describe", () => {
             { label: "Temp", value: "94 °C" },
             { label: "Ratio", value: "1:16.7", accent: true },
         ]);
+        expect(m.note).toBe("off the boil");
         expect(m.extras).toEqual([
-            { label: "Grind", value: "medium-fine" },
+            { label: "Grind", value: "medium-fine", note: "700 µm" },
             { label: "Filter", value: "paper" },
         ]);
-        expect(m.prep).toEqual(["Rinse the filter"]);
+        expect(m.prep).toEqual([
+            { title: "Rinse the filter", meta: "", comment: "preheat" },
+            { title: "Level the bed", meta: "" },
+        ]);
         expect(m.target).toBe("3:00");
+        expect(m.targetNote).toBe("expect some variance");
     });
 
     test("steps", () => {
@@ -56,7 +62,7 @@ group("describe", () => {
             { time: "0:45", timed: true, title: "Pour to 150 g", unknown: false, meta: "+100 g · over 15 s", qualifiers: ["spiral"], fill: 0.6, total: "150 g" },
             { time: "·", timed: false, title: "Water at 90 °C", unknown: false, meta: "", qualifiers: [] },
             { time: "1:30", timed: true, title: "Pour to 250 g", unknown: false, meta: "+100 g", qualifiers: [], fill: 1, total: "250 g" },
-            { time: "2:00", timed: true, title: "/swril", unknown: true, meta: "", qualifiers: [] },
+            { time: "2:00", timed: true, title: "Swril", unknown: true, meta: "", qualifiers: [] },
             { time: "2:10", timed: true, title: "Wait", unknown: false, meta: "until it is ready", qualifiers: [] },
         ]);
     });
@@ -70,6 +76,12 @@ group("describe", () => {
             ["04", "Press", "30 s"],
         ]);
         expect(m.extras).toContainEqual({ label: "Pace", value: "your own, no timer" });
+    });
+
+    test("an action outside the core vocabulary reads from its name", () => {
+        const m = model("@V60 15g\n/dig -- a small hole\n0:00 50g\n0:30 /tap-brewer ~5s");
+        expect(m.prep).toEqual([{ title: "Dig", meta: "", comment: "a small hole" }]);
+        expect(m.steps[1]).toMatchObject({ title: "Tap brewer", unknown: true, meta: "5 s" });
     });
 
     test("ratio only between the same units", () => {

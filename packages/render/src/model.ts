@@ -50,17 +50,30 @@ const durationText = ({ value, unit }: Duration) => {
   return `${Math.floor(seconds / 60)} min${rest ? ` ${rest} s` : ""}`;
 };
 
+/// An action outside the core vocabulary, in words: '/tap-brewer' -> 'Tap brewer'
+const humanize = (name: string) => {
+  const words = name.replace(/[-_]+/g, " ").trim();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
 /// Keep at most one decimal: float sums like 0.1 + 0.2 stay readable
 const short = (n: number) => Math.round(n * 10) / 10;
 
 /// A value or a range from two bounds
 const range = (low: number, high: number): Amount => (low === high ? { value: low } : { value: low, max: high });
 
+/** A step done before starting the timer: '/rinse -- preheat'. */
+export interface PrepModel {
+  title: string;
+  meta: string;
+  comment?: string;
+}
+
 /** One step of the card. */
 export interface StepModel {
   time: string; // '0:45', '·' for an untimed step among timed ones, '01' when nothing is timed
   timed: boolean;
-  title: string; // 'Pour to 150 g', 'Swirl', or '/name' for an action outside the core vocabulary
+  title: string; // 'Pour to 150 g', 'Swirl'; an action outside the core vocabulary reads from its name: '/tap-brewer' -> 'Tap brewer'
   unknown: boolean;
   meta: string; // '+100 g · over 15 s'
   qualifiers: string[];
@@ -73,11 +86,13 @@ export interface StepModel {
 export interface RecipeModel {
   kicker: string; // 'Chemex · Pour-over'
   title: string;
+  note?: string; // The header's comment: '@V60 15g 250g 90°C -- off the boil'
   specs: { label: string; value: string; accent?: boolean }[]; // Dose, water, temperature, ratio
-  extras: { label: string; value: string }[]; // Grind, filter, pace
-  prep: string[]; // Steps before the timer starts
+  extras: { label: string; value: string; note?: string }[]; // Grind (with its comment), filter, pace
+  prep: PrepModel[]; // Steps before the timer starts
   steps: StepModel[];
   target?: string;
+  targetNote?: string; // The target's comment: 'target 3:00 -- expect some variance'
 }
 
 export interface DescribeOptions {
@@ -158,7 +173,8 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
   };
 
   const grind = recipe.steps.find((s) => s.kind === "Grind");
-  if (grind) model.extras.push({ label: "Grind", value: grind.size });
+  if (header.comment) model.note = header.comment;
+  if (grind) model.extras.push(grind.comment ? { label: "Grind", value: grind.size, note: grind.comment } : { label: "Grind", value: grind.size });
   if (metadata.filter) model.extras.push({ label: "Filter", value: metadata.filter });
   if (firstTimed < 0 && steps.length) model.extras.push({ label: "Pace", value: "your own, no timer" });
 
@@ -178,16 +194,21 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
     } else if (step.kind === "Action") {
       const name = ACTION_ALIASES[step.name] ?? step.name;
       view.unknown = !(name in ACTIONS);
-      view.title = view.unknown ? `/${step.name}` : (LABELS[name] ?? step.name);
+      view.title = view.unknown ? humanize(step.name) : (LABELS[name] ?? humanize(step.name));
       if (step.duration) meta.push(durationText(step.duration));
       else if (name === "wait") meta.push("until it is ready");
     } else {
       view.title = `Water at ${amount(step.temp.amount, step.temp.unit)}`;
     }
 
+    view.meta = meta.join(" · ");
+    if (step.comment) view.comment = step.comment;
+
     // Untimed steps before the first timed one are done before starting the timer
     if (firstTimed > 0 && i < firstTimed) {
-      model.prep.push(view.title);
+      const prep: PrepModel = { title: view.title, meta: view.meta };
+      if (view.comment) prep.comment = view.comment;
+      model.prep.push(prep);
       return;
     }
 
@@ -195,13 +216,14 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
     const time = (step.kind === "Pour" || step.kind === "Action") && step.time ? step.time : undefined;
     view.time = time ? clock(time.seconds) : firstTimed < 0 ? String(index).padStart(2, "0") : "·";
     view.timed = time !== undefined;
-    view.meta = meta.join(" · ");
-    if (step.comment) view.comment = step.comment;
     model.steps.push(view);
   });
 
   const target = recipe.steps.find((s) => s.kind === "Target");
-  if (target) model.target = clock(target.time.seconds);
+  if (target) {
+    model.target = clock(target.time.seconds);
+    if (target.comment) model.targetNote = target.comment;
+  }
 
   return model;
 }

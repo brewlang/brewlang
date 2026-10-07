@@ -7,7 +7,7 @@ import { describe } from "./model.js";
 
 export type { HtmlOptions } from "./html.js";
 export { toHtml } from "./html.js";
-export type { DescribeOptions, RecipeModel, StepModel } from "./model.js";
+export type { DescribeOptions, PrepModel, RecipeModel, StepModel } from "./model.js";
 export { brewerKind, describe } from "./model.js";
 
 export interface RenderOptions extends HtmlOptions {

@@ -70,6 +70,12 @@
   text-wrap: balance;
 }
 
+.brew-note {
+  margin: -10px 0 0;
+  font: italic 400 16px var(--brew-font-display);
+  color: var(--brew-muted);
+}
+
 .brew-specs {
   margin: 0;
   display: grid;
@@ -133,17 +139,21 @@
   gap: 10px;
 }
 .brew-prep li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  position: relative;
+  padding-left: 15px;
 }
 .brew-prep li::before {
   content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
   width: 5px;
   height: 5px;
-  flex: none;
   border-radius: 999px;
   background: var(--brew-muted);
+}
+.brew-prep .brew-comment {
+  margin-left: 4px;
 }
 
 .brew-steps {
@@ -177,23 +187,10 @@
 .brew-step-title {
   font-size: 17px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
 }
-.brew-unknown {
-  color: var(--brew-muted);
-  font: italic 400 16px var(--brew-font-mono);
-}
-.brew-badge {
-  font: 500 11px var(--brew-font-body);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border: 1px dashed var(--brew-faint);
-  color: var(--brew-muted);
-  border-radius: 3px;
+.brew-step-title .brew-comment {
+  margin-left: 6px;
+  font-weight: 400;
 }
 .brew-meta {
   display: flex;
@@ -247,6 +244,12 @@
 .brew-target-time {
   font: 600 16px var(--brew-font-mono);
   font-style: normal;
+}
+
+.brew-target-note {
+  margin: -16px 0 0;
+  font: italic 400 15px var(--brew-font-display);
+  color: var(--brew-muted);
 }
 
 .brew-foot {
