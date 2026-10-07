@@ -6,6 +6,8 @@ export type * from "./ast.js";
 export { DOSE_UNITS, GRIND_SIZES, QUALIFIERS, TEMP_UNITS, WATER_UNITS } from "./ast.js";
 export type { Diagnostic, Severity } from "./diagnostics.js";
 export { analyze } from "./analyzer.js";
+export type { ConvertResult, ConvertUnits } from "./converter.js";
+export { convert } from "./converter.js";
 export { format } from "./formatter.js";
 export type * from "./json.js";
 export { JSON_VERSION, toJson } from "./json.js";

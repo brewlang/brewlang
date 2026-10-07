@@ -103,6 +103,7 @@ if (!diagnostics.some((d) => d.severity === "error")) {
 | `scale(recipe, factor)` | Every weight multiplied by `factor` |
 | `scaleToDose(recipe, { value, unit })` | Scaled to a new dose |
 | `scaleToWater(recipe, { value, unit })` | Scaled to a new total water: the header's, or where the pours end |
+| `convert(recipe, { dose, water, temp })` | In other units: dose in `g` or `oz`, water within weights (`g`, `oz`) or volumes (`ml`, `floz`), temperatures in `°C` or `°F` |
 | `toJson(recipe)` | The recipe as JSON, described by [`schema/brewlang-0.1.schema.json`](schema/brewlang-0.1.schema.json) |
 
 Nothing throws. Every function collects `Diagnostic { severity, message, line, column }` values, with 1-based positions, and keeps going. There are three severities:
@@ -111,7 +112,7 @@ Nothing throws. Every function collects `Diagnostic { severity, message, line, c
 - **warning:** probably a mistake.
 - **suggestion:** a possible improvement.
 
-`format`, `toJson` and the scaling functions expect a recipe without errors.
+`format`, `toJson`, `convert` and the scaling functions expect a recipe without errors.
 
 ### Scaling
 
@@ -143,6 +144,10 @@ Amounts are rounded the way a scale shows them: to 1 g or 1 ml, and to 0.1 oz or
 - **Lossless:** everything the recipe says is kept, including `+60g` pours (`add_water`), temperature changes (`"kind": "temp"`), comments and the unit of durations (`"duration_unit": "m"` for `~4m`). Only the layout, like blank lines, is not.
 - **Metadata:** only the frontmatter's simple `key: value` lines, as text. Any other line is left out, with a warning.
 - **Grind:** on the recipe, not among the steps. A recipe has at most one `grind` line, right after the header.
+
+### Units
+
+`convert` rewrites a recipe in the reader's units, rounded like scaling: 1 g or ml, 0.1 oz or floz, 1 degree. Weights never become volumes, so water in `g` converts only to `oz`, and `ml` only to `floz`. Added pours are derived from the rounded running total, as when scaling.
 
 ## Canonical tests
 

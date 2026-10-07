@@ -30,7 +30,8 @@ Pipeline, all exposed from `src/index.ts`:
 4. `check` (`src/index.ts`) — `parse`, then `analyze` only if there are no syntax errors, then sorts all diagnostics by line/column. This is the main entry point.
 5. `format` (`src/formatter.ts`) — `Recipe` → canonical `.brew` text. Never changes the meaning; needs a recipe without syntax errors.
 6. `scale`, `scaleToDose`, `scaleToWater` (`src/scaler.ts`) — a checked `Recipe` → a new one with every weight multiplied; times untouched, with a warning. Rounds to 1 g/ml or 0.1 oz/floz; `+` pours are derived from the rounded running total so it stays exact.
-7. `toJson` (`src/json.ts`) — a checked `Recipe` → `BrewJson`, described by `schema/brewlang-0.1.schema.json`. Lossless except layout; the grind goes on the recipe, not in the steps. Change the schema, `JSON_VERSION` and `tests/canonical/json/` together.
+7. `convert` (`src/converter.ts`) — a checked `Recipe` → the same in other units (g↔oz, ml↔floz, °C↔°F; never weight↔volume). Reuses the scaler's rounding and running-total logic for `+` pours.
+8. `toJson` (`src/json.ts`) — a checked `Recipe` → `BrewJson`, described by `schema/brewlang-0.1.schema.json`. Lossless except layout; the grind goes on the recipe, not in the steps. Change the schema, `JSON_VERSION` and `tests/canonical/json/` together.
 
 `src/registry.ts` holds the brewers (one per method, each with a type) and the core action vocabulary with its aliases; actions are restricted by brewer type. Unknown brewers have no restriction.
 

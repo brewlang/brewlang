@@ -14,17 +14,17 @@ export interface ScaleResult {
 }
 
 /// Build an amount from two bounds, a single value when they are equal
-const range = (low: number, high: number): Amount =>
+export const range = (low: number, high: number): Amount =>
   low === high ? { value: low } : { value: low, max: high };
 
 /// Round to what a scale shows: 1 g or ml, 0.1 oz or floz
-const round = (value: number, unit: string) =>
+export const round = (value: number, unit: string) =>
   unit === "oz" || unit === "floz" ? Math.round(value * 10) / 10 : Math.round(value);
 
 /// A factor for a message: 1.6666 -> '×1.67'
 const formatFactor = (factor: number) => `×${Number(factor.toFixed(2))}`;
 
-const diagnostic = (severity: Severity, message: string, { line, column }: Node): Diagnostic => ({
+export const diagnostic = (severity: Severity, message: string, { line, column }: Node): Diagnostic => ({
   severity,
   message,
   line,
