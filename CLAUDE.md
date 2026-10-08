@@ -7,9 +7,11 @@ Brewlang is a markup language for coffee brewing recipes (`.brew` files). This r
 - `packages/brewlang` — the TypeScript library that lexes, parses, checks, formats, scales, converts and exports recipes as JSON, plus a small `brewlang` CLI. No runtime dependencies.
 - `packages/render` — `@brewlang/render`: recipe cards as HTML (`render`, `describe`, `toHtml`), the `<brew-recipe>` element and `brew.css`. Depends on `brewlang` only.
 
-`examples/` (real recipes) stays at the root: the tests of both packages and the playground (`../brewlang-playground`) read it.
+`examples/` (real recipes) stays at the root: the tests of both packages and the playground (`../playground`) read it.
 
-`docs/llms.txt` describes the language for AI assistants. The playground serves it (and later the docs site); `tests/llms.test.ts` checks it names every brewer, core action, alias and closed word, so update it with the language.
+`docs/llms.txt` describes the language for AI assistants. The playground and the site serve it; `tests/llms.test.ts` checks it names every brewer, core action, alias and closed word, so update it with the language.
+
+The documentation lives in the site repo, `../brewlang.github.io` (Astro + Starlight, published at brewlang.github.io/doc/): guide, vocabulary, integration pages and the spec. Its tests check the docs against this package (every word of the vocabulary, every recipe valid), so a language change usually needs a docs change there too.
 
 ## Commands
 
@@ -31,7 +33,7 @@ In `packages/brewlang` (paths below are relative to it):
 
 ## Language spec
 
-The spec lives in Notion, not in the repo: "Spec v0" (syntax, EBNF, semantic rules), "Décisions & questions ouvertes", and "Recettes canoniques & tests". Check it before changing what the lexer/parser accepts or writing tests for new syntax.
+The spec is `src/content/docs/doc/spec/v0.md` in the site repo (`../brewlang.github.io`): grammar, semantic rules, conformance. Keep it in step with the lexer, parser and analyzer. Notion keeps the reasoning: "Décisions & questions ouvertes" and "Recettes canoniques & tests"; its "Spec v0" page is the original French draft. Check both before changing what the lexer/parser accepts or writing tests for new syntax.
 
 A `.brew` file is: optional `---` YAML frontmatter (kept raw by the parser; `toJson` reads only its `key: value` lines), a header line `@V60 15g 250g 94°C`, then one step per line: `grind <size>`, pours (`0:45 150g ~15s spiral`, `+60g bloom`), actions (`2:00 /swirl`), temperature changes (`90°C` alone), `target 3:00`, and `--` comments.
 
