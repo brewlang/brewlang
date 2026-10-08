@@ -9,6 +9,8 @@ Brewlang is a markup language for coffee brewing recipes (`.brew` files). This r
 
 `examples/` (real recipes) stays at the root: the tests of both packages and the playground (`../brewlang-playground`) read it.
 
+`docs/llms.txt` describes the language for AI assistants. The playground serves it (and later the docs site); `tests/llms.test.ts` checks it names every brewer, core action, alias and closed word, so update it with the language.
+
 ## Commands
 
 From the root:

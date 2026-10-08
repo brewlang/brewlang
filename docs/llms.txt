@@ -1,0 +1,49 @@
+# Brewlang
+
+> Brewlang is a plain-text format for coffee brewing recipes (pour-over, immersion and hybrid brewers), written the way you note a recipe in a notebook. Files end in `.brew`. Try and check recipes at https://brewlang.github.io/playground/
+
+## A complete recipe
+
+```
+---
+title: V60 Ethiopia Guji
+filter: paper
+---
+
+@V60 15g 250g 94°C
+grind medium-fine
+
+/rinse
+0:00 50g ~10s bloom center
+0:45 150g ~15s spiral
+90°C
+1:30 250g ~20s center
+2:00 /swirl
+
+target 3:00
+```
+
+## Rules
+
+- Optional metadata between two `---` lines, as `key: value` lines: `title`, `filter` (free text, like `paper` or `paper, V60 cone`), anything else.
+- Then the header line: `@Brewer dose [total water] [starting temperature]`, in this order. Example: `@V60 15g 250g 94°C`.
+- Brewers: `@V60`, `@Kalita`, `@Melitta`, `@Chemex`, `@Origami`, `@UFO`, `@Phin`, `@Switch`, `@Clever`, `@Pulsar`, `@AeroPress`, `@FrenchPress`, `@Siphon`. Other names are accepted.
+- Units: dose in `g` or `oz`; water in `g`, `ml`, `oz` or `floz`; temperature in `°C` or `°F`. One unit per measure in a recipe. No spoons or cups. Ranges are written `90-93°C` or `40-50g`.
+- Then one step per line:
+  - `grind <size>`: at most once, right after the header. Sizes: `extra-fine`, `fine`, `medium-fine`, `medium`, `medium-coarse`, `coarse`, `extra-coarse`.
+  - A pour: `[time] amount [~duration] [qualifiers]`. `150g` is the total on the scale after the pour; `+60g` is water to add. Totals must go up, and the last one must equal the header's total water when the header gives one.
+  - Pour qualifiers: `bloom`, plus at most one technique among `spiral`, `center`, `pulse`. No other word is allowed after a pour.
+  - An action: `[time] /name [~duration]`, alone on its line. Known actions: `/swirl`, `/stir`, `/skim`, `/wait`, `/rinse`, `/level-bed`, `/add-coffee`, `/press` (alias `/plunge`, AeroPress and French press), `/invert` and `/flip` (AeroPress), `/open` and `/close` (Switch, Clever, Pulsar), `/drawdown` (drippers and valve brewers). Other names are accepted.
+  - A temperature alone on its line, like `90°C`, applies to every following step.
+  - `target 3:00`: when the brew should end. At most once.
+  - `-- text`: a comment, alone or at the end of a line.
+- Times are `m:ss`, from the start of the timer: `0:45`, `1:30`. They never go down. Durations start with `~`: `~15s`, `~4m`, `~3:30`.
+- Steps without a time before the first timed step are preparation, done before starting the timer (`/rinse`, `/close`, `/invert`).
+- A recipe can have no times at all: steps then follow each other at the brewer's pace, and waits are written `/wait ~45s`. `/wait` alone means wait until it is ready.
+- The ratio is never written: tools compute it.
+- The coffee is assumed to be in the brewer from the start. When it goes in later (water first in a Clever, once the water has risen in a siphon), write `/add-coffee` at that moment.
+- A valve brewer that starts closed begins with `/close`. An inverted AeroPress begins with `/invert` and uses `/flip` before `/press`.
+
+## When you write a recipe
+
+Reply with the `.brew` file only. Keep the author's units. Write a `title` in the metadata. Use `bloom` on the first small pour when it is one.
