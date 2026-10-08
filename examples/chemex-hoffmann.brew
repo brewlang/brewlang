@@ -8,11 +8,12 @@ filter: paper
 grind medium
 
 /rinse
+/level-bed -- then make a small divot in the middle
 0:00 80g ~10s bloom spiral -- gentle circles, saturate all the coffee
 0:45 300g ~30s spiral
 1:15 500g ~30s spiral
-1:45 /stir -- gently, once clockwise then once counter-clockwise
-1:55 /swirl ~3s -- shake the brewer gently
-1:58 /drawdown
+1:45 /stir ~5s -- gently, once clockwise then once counter-clockwise
+2:00 /swirl ~3s -- shake the brewer gently
+2:03 /drawdown
 
 target 4:10 -- remove the filter and swirl the coffee before serving

@@ -4,14 +4,14 @@ source: https://honestcoffeeguide.com/brew-recipes/james-hoffmann-clever-dripper
 filter: paper
 ---
 
-@Clever 15g 250g 90°C
+@Clever 18g 250g 90°C
 grind medium-fine
 
 /rinse
-0:00 250g -- the water goes in first, before the coffee
-0:00 /add-coffee
-0:00 /stir -- until all the grounds are wet
-2:00 /stir -- break the crust
-2:22 /open -- set the Clever on the cup
+0:00 250g ~10s -- the water goes in first; the page's preparation says 300g, its step 250g
+0:10 /add-coffee ~5s
+0:15 /stir ~10s -- until all the grounds are wet
+2:25 /stir ~8s -- break the crust and let the grounds sink
+2:55 /open -- set the Clever on the cup
 
-target 4:00
+target 4:00 -- the drawdown takes about a minute

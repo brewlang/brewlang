@@ -27,7 +27,7 @@ target 4:10
 | [`brewlang`](packages/brewlang) | The language: lexer, parser, checker, formatter, scaling, unit conversion, JSON output, and the `brewlang` CLI. No runtime dependencies. |
 | [`@brewlang/render`](packages/render) | Recipe cards: an HTML string from any recipe, a `<brew-recipe>` element, and `brew.css` to style them. |
 
-[`examples/`](examples/) holds real recipes rewritten in Brewlang. The playground lives in [brewlang/playground](https://github.com/brewlang/playground).
+[`examples/`](examples/) holds real recipes rewritten in Brewlang. The playground lives in [brewlang/playground](https://github.com/brewlang/playground). [`docs/llms.txt`](docs/llms.txt) describes the format for AI assistants.
 
 ## Development
 

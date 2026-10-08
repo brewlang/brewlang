@@ -8,8 +8,8 @@ filter: cloth
 grind medium-coarse
 
 375g -- in the bottom chamber, then fit the top chamber and heat
-0:00 /add-coffee -- once the water has risen
-0:00 /stir -- until all is wet
+/add-coffee -- once the bottom chamber is nearly empty
+/stir -- until all is wet, then start the timer
 1:30 /stir -- turn off the heat, stir, take it off the burner
 
 target 2:30 -- blow on the bottom chamber to start the drawdown
