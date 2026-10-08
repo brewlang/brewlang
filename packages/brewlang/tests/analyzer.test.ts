@@ -391,6 +391,14 @@ describe("actions", () => {
         );
     });
 
+    test("add-coffee works everywhere, and catches its typos", () => {
+        expect(diagnostics("@Siphon 20g\n300g\n/add-coffee\n/stir")).toEqual([]);
+        expect(diagnostics("@FrenchPress 30g\n/add-coffee\n500g")).toEqual([]);
+        expect(diagnostics("@V60 15g\n/add-cofee")[0]?.[1]).toBe(
+            "Unknown action '/add-cofee'. Did you mean '/add-coffee'?",
+        );
+    });
+
     test("unknown actions far from every known one are accepted", () => {
         expect(diagnostics("@V60 15g\n/tap\n/spin\n/tap-brewer")).toEqual([]);
     });

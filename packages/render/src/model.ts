@@ -14,6 +14,7 @@ const KINDS: Record<BrewerType, string> = {
 const LABELS: Record<string, string> = {
   rinse: "Rinse the filter",
   "level-bed": "Level the bed",
+  "add-coffee": "Add the coffee",
   swirl: "Swirl",
   stir: "Stir",
   skim: "Skim",
