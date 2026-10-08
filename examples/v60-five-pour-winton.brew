@@ -9,17 +9,13 @@ grind medium
 
 /rinse
 /level-bed
-60g bloom spiral -- circular motions, wet the coffee evenly
-/wait
-120g spiral -- from a height, for some agitation
-/wait ~30s -- or until the bed runs dry
-180g spiral
-/wait ~30s
-240g spiral
-/wait ~30s
+0:00 60g ~10s bloom spiral -- circular motions, wet the coffee evenly
 88°C -- second kettle, or let the kettle cool
-300g spiral
-/drawdown ~3:30
-/swirl -- then smell the aroma while it cools
+0:40 120g ~10s spiral -- from a height, for some agitation; or when the bed runs dry
+1:20 180g ~10s spiral
+2:00 240g ~10s spiral
+2:40 300g ~10s spiral
+2:50 /drawdown ~3:30
+6:20 /swirl -- then smell the aroma while it cools
 
 target 6:50

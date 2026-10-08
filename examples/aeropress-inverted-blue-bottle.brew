@@ -8,12 +8,12 @@ filter: paper
 grind medium-fine
 
 /invert
-30g bloom
-/stir -- 3 or 4 times, until all the coffee is wet
-/wait
-200g
-/rinse -- the paper filter in the cap, while it brews
-/flip -- lock the cap, push the air out, then flip onto the cup
-/press ~30s -- gently, with the weight of your arms only
+0:00 30g ~10s bloom
+0:10 /stir ~10s -- 3 or 4 times, until all the coffee is wet
+0:20 /wait ~25s
+0:45 200g ~10s
+0:55 /rinse -- the paper filter in the cap, while it brews
+1:45 /flip ~20s -- lock the cap, lift it off the scale, push the air out, then flip onto the cup
+2:10 /press ~30s -- gently, with the weight of your arms only
 
 target 2:40
