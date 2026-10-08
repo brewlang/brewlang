@@ -36,6 +36,7 @@ export const ACTIONS: Readonly<Record<string, KnownAction>> = {
   wait: {},
   rinse: {},
   "level-bed": {},
+  "add-coffee": {}, // Put the ground coffee in, when it does not go in first
   press: { types: ["aeropress", "press"] },
   invert: { types: ["aeropress"] }, // Turn it upside down, for an inverted recipe
   flip: { types: ["aeropress"] }, // Turn it back onto the cup

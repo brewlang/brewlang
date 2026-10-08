@@ -9,7 +9,8 @@ grind medium-fine
 
 /rinse
 0:00 250g -- the water goes in first, before the coffee
-0:00 /stir -- add the coffee, stir until all the grounds are wet
+0:00 /add-coffee
+0:00 /stir -- until all the grounds are wet
 2:00 /stir -- break the crust
 2:22 /open -- set the Clever on the cup
 
