@@ -122,7 +122,7 @@ Amounts are rounded the way a scale shows them: to 1 g or 1 ml, and to 0.1 oz or
 
 ### JSON
 
-`toJson` gives the recipe as plain data, for apps that do not want to parse `.brew` themselves. The format is versioned (`"brewlang": "0.1"`) and described by a [JSON Schema](schema/brewlang-0.1.schema.json). Field names follow [CoffeeJSON](https://github.com/coffeejson-org/coffeejson) where the two formats overlap: `coffee`, `water`, `water_temp`, `at_s`, `to_water`, `action_duration_s`, units spelled out (`gram`, `celsius`), ranges as `min` and `max`.
+`toJson` gives the recipe as plain data, for apps that do not want to parse `.brew` themselves. The format is versioned (`"brewlang": "0.1"`) and described by a [JSON Schema](schema/brewlang-0.1.schema.json). Units are spelled out (`gram`, `celsius`), ranges are `min` and `max`, and times are in seconds (`at_s`, `action_duration_s`).
 
 ```json
 {
