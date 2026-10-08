@@ -18,7 +18,7 @@ grind medium
 target 4:10
 ```
 
-**Try it in the [playground](https://brewlang.github.io/playground/).** Brewlang is at v0: the syntax can still change.
+**Try it in the [playground](https://brewlang.github.io/playground/), and read the [documentation](https://brewlang.github.io/doc/).** Brewlang is at v0: the syntax can still change.
 
 ## Packages
 
