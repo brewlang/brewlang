@@ -103,6 +103,7 @@ if (!diagnostics.some((d) => d.severity === "error")) {
 | `scale(recipe, factor)` | Every weight multiplied by `factor` |
 | `scaleToDose(recipe, { value, unit })` | Scaled to a new dose |
 | `scaleToWater(recipe, { value, unit })` | Scaled to a new total water: the header's, or where the pours end |
+| `totalWater(recipe)` | The total water, as `{ low, high, unit }`: the header's, or where the pours end; `low` and `high` differ when it ends on a range |
 | `convert(recipe, { dose, water, temp })` | In other units: dose in `g` or `oz`, water within weights (`g`, `oz`) or volumes (`ml`, `floz`), temperatures in `°C` or `°F` |
 | `toJson(recipe)` | The recipe as JSON, described by [`schema/brewlang-0.1.schema.json`](schema/brewlang-0.1.schema.json) |
 

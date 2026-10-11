@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import type { ScaleResult } from "../src/index.js";
-import { check, format, scale, scaleToDose, scaleToWater } from "../src/index.js";
+import { check, format, scale, scaleToDose, scaleToWater, totalWater } from "../src/index.js";
 
 // Parse a source that must check without errors
 const recipe = (source: string) => {
@@ -106,6 +106,24 @@ describe("scaleToDose", () => {
         expect(result(scaleToDose(recipe("@V60 15-16g 250g"), { value: 30, unit: "g" })).diagnostics).toEqual([
             ["error", "The dose is a range, 15-16g: scale this recipe by its water instead", 1, 6],
         ]);
+    });
+});
+
+describe("totalWater", () => {
+    test("the header total wins", () => {
+        expect(totalWater(recipe(v60))).toEqual({ low: 250, high: 250, unit: "g" });
+    });
+
+    test("without one, where the pours end, added pours included", () => {
+        expect(totalWater(recipe("@V60 15g\n0:00 50g\n0:45 +200g"))).toEqual({ low: 250, high: 250, unit: "g" });
+    });
+
+    test("a range gives both bounds", () => {
+        expect(totalWater(recipe("@V60 15g\n0:00 40-50g\n0:45 240-250g"))).toEqual({ low: 240, high: 250, unit: "g" });
+    });
+
+    test("no header water and no pour: unknown", () => {
+        expect(totalWater(recipe("@FrenchPress 30g\n/wait ~4m"))).toBeUndefined();
     });
 });
 

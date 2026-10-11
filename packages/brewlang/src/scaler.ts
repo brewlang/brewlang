@@ -31,8 +31,8 @@ export const diagnostic = (severity: Severity, message: string, { line, column }
   column,
 });
 
-/// Water on the scale after the last pour, as bounds; the header total wins when written
-function totalWater(recipe: Recipe): { low: number; high: number; unit: string } | undefined {
+/** Water on the scale after the last pour, as bounds (equal unless it ends on a range); the header total wins when written. */
+export function totalWater(recipe: Recipe): { low: number; high: number; unit: string } | undefined {
   const water = recipe.header?.water;
   if (water) {
     const { value, max = value } = water.amount;
