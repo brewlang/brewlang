@@ -15,7 +15,7 @@ export { lex } from "./lexer.js";
 export type { Token, TokenKind } from "./tokens.js";
 export { parse } from "./parser.js";
 export type { ScaleResult, ScaleTarget } from "./scaler.js";
-export { scale, scaleToDose, scaleToWater } from "./scaler.js";
+export { scale, scaleToDose, scaleToWater, totalWater } from "./scaler.js";
 export * from "./registry.js";
 
 /** Parses and checks a Brewlang source: the recipe, and every diagnostic in file order. */
