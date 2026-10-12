@@ -67,7 +67,7 @@ group("describe", () => {
         ]);
     });
 
-    test("no timer: numbered steps and your own pace", () => {
+    test("no timer: numbered steps, no extra line", () => {
         const m = model("@FrenchPress 30g 500g 95°C\n500g\n/stir\n/wait ~4m\n/press ~30s");
         expect(m.steps.map((s) => [s.time, s.title, s.meta])).toEqual([
             ["01", "Pour to 500 g", "+500 g"],
@@ -75,7 +75,7 @@ group("describe", () => {
             ["03", "Wait", "4 min"],
             ["04", "Press", "30 s"],
         ]);
-        expect(m.extras).toContainEqual({ label: "Pace", value: "your own, no timer" });
+        expect(m.extras).toEqual([]);
     });
 
     test("an action outside the core vocabulary reads from its name", () => {

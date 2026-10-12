@@ -89,7 +89,7 @@ export interface RecipeModel {
   title: string;
   note?: string; // The header's comment: '@V60 15g 250g 90°C -- off the boil'
   specs: { label: string; value: string; accent?: boolean }[]; // Dose, water, temperature, ratio
-  extras: { label: string; value: string; note?: string }[]; // Grind (with its comment), filter, pace
+  extras: { label: string; value: string; note?: string }[]; // Grind (with its comment), filter
   prep: PrepModel[]; // Steps before the timer starts
   steps: StepModel[];
   target?: string;
@@ -177,7 +177,6 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
   if (header.comment) model.note = header.comment;
   if (grind) model.extras.push(grind.comment ? { label: "Grind", value: grind.size, note: grind.comment } : { label: "Grind", value: grind.size });
   if (metadata.filter) model.extras.push({ label: "Filter", value: metadata.filter });
-  if (firstTimed < 0 && steps.length) model.extras.push({ label: "Pace", value: "your own, no timer" });
 
   let index = 0;
   steps.forEach((step, i) => {
