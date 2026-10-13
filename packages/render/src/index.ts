@@ -5,9 +5,9 @@ import { toHtml } from "./html.js";
 import type { RecipeModel } from "./model.js";
 import { describe } from "./model.js";
 
-export type { HtmlOptions } from "./html.js";
-export { toHtml } from "./html.js";
-export type { DescribeOptions, PrepModel, RecipeModel, StepModel } from "./model.js";
+export type { HtmlOptions, Layout } from "./html.js";
+export { LAYOUTS, toHtml } from "./html.js";
+export type { ChartModel, ChartPour, DescribeOptions, PrepModel, RecipeModel, StepModel } from "./model.js";
 export { brewerKind, describe } from "./model.js";
 
 export interface RenderOptions extends HtmlOptions {

@@ -1,5 +1,6 @@
 import type { RenderOptions } from "./index.js";
-import { render } from "./index.js";
+import { LAYOUTS, render } from "./index.js";
+import type { Layout } from "./index.js";
 
 /// '°F', 'F', 'fahrenheit' -> '°F'
 function tempUnit(temp: string | null): RenderOptions["temp"] {
@@ -10,11 +11,11 @@ function tempUnit(temp: string | null): RenderOptions["temp"] {
 /**
  * A recipe card: `<brew-recipe src="chemex.brew"></brew-recipe>`, or the recipe as the element's text.
  * Attributes: `scale` (2 doubles it), `weight` (g or oz), `temp` (°C or °F), `heading` (the title when the
- * recipe has none), `theme` (light or dark).
+ * recipe has none), `theme` (light or dark), `layout` (classic, minimal, receipt, poster or chart).
  * The card is rendered in the page, not in a shadow root: style it with brew.css and its --brew-* variables.
  */
 export class BrewRecipeElement extends HTMLElement {
-  static observedAttributes = ["src", "scale", "weight", "temp", "heading", "theme"];
+  static observedAttributes = ["src", "scale", "weight", "temp", "heading", "theme", "layout"];
 
   #source: string | undefined;
   #loaded: string | null = null; // The src last fetched
@@ -68,6 +69,8 @@ export class BrewRecipeElement extends HTMLElement {
     if (heading) options.title = heading;
     const theme = this.getAttribute("theme");
     if (theme === "light" || theme === "dark") options.theme = theme;
+    const layout = this.getAttribute("layout");
+    if (layout && (LAYOUTS as readonly string[]).includes(layout)) options.layout = layout as Layout;
 
     const { html, diagnostics } = render(this.#source, options);
     this.innerHTML = html;

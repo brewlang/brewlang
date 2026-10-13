@@ -83,9 +83,28 @@ export interface StepModel {
   total?: string; // Pours only: the water on the scale after this pour
 }
 
+/** A pour on the chart: from `at` to `until` seconds, the scale goes from `from` to `to`. */
+export interface ChartPour {
+  at: number;
+  until: number;
+  from: number;
+  to: number;
+  time: string; // '0:45'
+}
+
+/** The water on the scale over time, for the chart layout: only when pours are timed. */
+export interface ChartModel {
+  pours: ChartPour[];
+  total: number; // The water at the end, the top of the chart
+  totalLabel: string; // '250 g'
+  end: number; // Seconds: the target, else where the last timed step ends
+  target?: string; // '3:00', drawn at the end
+}
+
 /** What a recipe card shows, in words: build it with describe(), render it with toHtml(). */
 export interface RecipeModel {
   kicker: string; // 'Chemex · Pour-over'
+  brewer: string; // 'Chemex', as the registry names it, or as written outside it
   title: string;
   note?: string; // The header's comment: '@V60 15g 250g 90°C -- off the boil'
   specs: { label: string; value: string; accent?: boolean }[]; // Dose, water, temperature, ratio
@@ -94,6 +113,7 @@ export interface RecipeModel {
   steps: StepModel[];
   target?: string;
   targetNote?: string; // The target's comment: 'target 3:00 -- expect some variance'
+  chart?: ChartModel;
 }
 
 export interface DescribeOptions {
@@ -161,6 +181,7 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
 
   const model: RecipeModel = {
     kicker: brewer ? `${brewer.name} · ${KINDS[brewer.type]}` : header.brewer,
+    brewer: brewer ? brewer.name : header.brewer,
     title: metadata.title || options.title || "Untitled recipe",
     specs: [
       { label: "Dose", value: amount(header.dose.amount, header.dose.unit) },
@@ -223,6 +244,30 @@ export function describe(recipe: Recipe, options: DescribeOptions = {}): RecipeM
   if (target) {
     model.target = clock(target.time.seconds);
     if (target.comment) model.targetNote = target.comment;
+  }
+
+  // The chart: every timed pour, the scale rising over its duration; the upper bound of a range
+  const chartPours: ChartPour[] = [];
+  let lastEnd = 0;
+  let scale = 0;
+  for (const step of steps) {
+    if (step.kind === "TempChange") continue;
+    const duration = step.duration ? (step.duration.unit === "m" ? step.duration.value * 60 : step.duration.value) : 0;
+    if (step.time) lastEnd = Math.max(lastEnd, step.time.seconds + duration);
+    if (step.kind !== "Pour") continue;
+    const to = pours.get(step)!.after;
+    const high = to.max ?? to.value;
+    if (step.time) chartPours.push({ at: step.time.seconds, until: step.time.seconds + duration, from: scale, to: high, time: clock(step.time.seconds) });
+    scale = high;
+  }
+  if (chartPours.length && total && totalHigh > 0) {
+    model.chart = {
+      pours: chartPours,
+      total: totalHigh,
+      totalLabel: amount(total.amount, total.unit),
+      end: target ? Math.max(target.time.seconds, lastEnd) : lastEnd,
+    };
+    if (target) model.chart.target = clock(target.time.seconds);
   }
 
   return model;

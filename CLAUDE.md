@@ -59,7 +59,7 @@ The CLI is split so the library never sees Node: `src/cli/run.ts` holds all the 
 ## Architecture of `packages/render`
 
 - `src/model.ts` — `describe(recipe, { title, written })` turns a `Recipe` into a `RecipeModel`: words, not markup (kicker, title from the metadata via `toJson`, specs, preparation, steps, target). The ratio comes from `written`, the recipe as authored, since rounding a scaled or converted copy would shift it, and only between the same units.
-- `src/html.ts` — `toHtml(model)` → an HTML string, every text escaped. Every class starts with `brew-`; `brew.css` styles them through `--brew-*` variables and a container query (the card adapts to its own width). Class names and variables are a public contract, like the JSON.
+- `src/html.ts` — `toHtml(model, { signed, theme, layout })` → an HTML string, every text escaped. A layout other than `classic` is a `data-layout` attribute on the card, styled in `brew.css`; `chart` also draws `model.chart` (the timed pours, from `describe`) as an inline SVG whose colors come from classes, not attributes. Every class starts with `brew-`; `brew.css` styles them through `--brew-*` variables and a container query (the card adapts to its own width). Class names and variables are a public contract, like the JSON.
 - `src/index.ts` — `render(source, options)`: `check`, then `scale` and `convert` only without errors (`weight` g/oz keeps water a volume when it is one), then `describe` and `toHtml`. Returns the HTML, the model, the recipe shown, the diagnostics and the scaling/converting notes.
 - `src/element.ts` — `<brew-recipe>`, light DOM (no shadow root, so page CSS applies). The only module using the DOM; exported as `@brewlang/render/element`.
 

@@ -31,6 +31,7 @@ Brewlang is at v0: the class names and the `--brew-*` variables can still change
 | `temp` | Show the temperatures in `°C` or `°F` (`C` and `F` work too) |
 | `heading` | The title when the recipe's metadata has none |
 | `theme` | `light` or `dark` |
+| `layout` | `classic` (default), `minimal`, `receipt`, `poster` or `chart` |
 
 The card is rendered in the page, not in a shadow root, so your own CSS reaches it. The element gets an `invalid` attribute when the recipe has errors, and fires `brew-render` with the diagnostics in `event.detail`. Set `element.source` to show another recipe.
 
@@ -50,7 +51,7 @@ For finer control:
 |---|---|
 | `render(source, options)` | Check, scale, convert, describe, then `toHtml`: the usual way |
 | `describe(recipe, { title, written })` | A parsed recipe → the card's content in words (`RecipeModel`): title, specs, preparation, steps, target |
-| `toHtml(model, { signed, theme })` | A `RecipeModel` → HTML; `signed` adds "Brewlang" at the bottom, for an image to share |
+| `toHtml(model, { signed, theme, layout })` | A `RecipeModel` → HTML; `signed` adds "Brewlang" at the bottom, for an image to share |
 | `brewerKind(name)` | `'V60'` → `'Pour-over'` |
 
 With `describe`, pass the recipe as written in `written` when you describe a scaled or converted copy: the ratio comes from it, since rounding would shift it.
@@ -77,6 +78,16 @@ With `describe`, pass the recipe as written in `written` when you describe a sca
 | `--brew-qual`, `--brew-qual-line` | The `bloom`, `spiral`… chips |
 | `--brew-font-display`, `--brew-font-body`, `--brew-font-mono` | Fonts; the defaults expect Newsreader, Instrument Sans and IBM Plex Mono, and fall back to the system's |
 | `--brew-radius` | Corners |
+
+The `layout` option (or attribute) lays the same recipe out another way; the colors and fonts above apply to every layout:
+
+| Layout | What it shows |
+|---|---|
+| `classic` | The default: specs, preparation, one step per row with the water bar |
+| `minimal` | One dense line per step, no bars: the whole recipe at a glance, for notes |
+| `receipt` | A till receipt: all in the mono font, dashed rules, and a barcode of brewlang.github.io (Code 128) that links to the site |
+| `poster` | The brewer huge, the amounts big, the steps small under them |
+| `chart` | The water on the scale over time, as an SVG drawn from the timed pours, then the steps in one line each |
 
 `data-theme="dark"` on the card switches to the dark palette. The card adapts to its own width, not the window's: under 520px, the specs go on two columns.
 

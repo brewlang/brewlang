@@ -36,6 +36,7 @@ group("describe", () => {
     test("head and specs", () => {
         const m = model(v60);
         expect(m.kicker).toBe("V60 · Pour-over");
+        expect(m.brewer).toBe("V60");
         expect(m.title).toBe("V60 Guji");
         expect(m.specs).toEqual([
             { label: "Dose", value: "15 g" },
@@ -98,6 +99,29 @@ group("describe", () => {
     test("no header, no card", () => {
         expect(describe(check("").recipe)).toBeUndefined();
     });
+
+    test("chart: the scale rising over each timed pour", () => {
+        expect(model(v60).chart).toEqual({
+            pours: [
+                { at: 0, until: 10, from: 0, to: 50, time: "0:00" },
+                { at: 45, until: 60, from: 50, to: 150, time: "0:45" },
+                { at: 90, until: 90, from: 150, to: 250, time: "1:30" },
+            ],
+            total: 250,
+            totalLabel: "250 g",
+            end: 180,
+            target: "3:00",
+        });
+    });
+
+    test("chart: without a target, it ends with the last timed step", () => {
+        expect(model("@V60 15g 250g\n0:00 50g\n0:30 250g ~20s\n1:00 /wait ~30s").chart).toMatchObject({ end: 90 });
+        expect(model("@V60 15g 250g\n0:00 50g\n0:30 250g ~20s\n1:00 /wait ~30s").chart?.target).toBeUndefined();
+    });
+
+    test("chart: none without timed pours", () => {
+        expect(model("@FrenchPress 30g 500g 95°C\n500g\n/stir").chart).toBeUndefined();
+    });
 });
 
 group("toHtml", () => {
@@ -113,6 +137,35 @@ group("toHtml", () => {
         expect(html).toContain("&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt; &amp; co");
         expect(html).toContain("&lt;b&gt;hot&lt;/b&gt;");
         expect(html).not.toContain("<script>");
+    });
+
+    test("the brewer has a span of its own in the kicker", () => {
+        expect(toHtml(model(v60))).toContain(
+            '<div class="brew-kicker"><span class="brew-brewer">V60</span><span class="brew-sep"> · </span><span class="brew-method">Pour-over</span></div>',
+        );
+    });
+
+    test("a layout other than classic is an attribute of the card", () => {
+        expect(toHtml(model(v60), { layout: "classic" }).startsWith('<article class="brew-card">')).toBe(true);
+        expect(toHtml(model(v60), { layout: "receipt" }).startsWith('<article class="brew-card" data-layout="receipt">')).toBe(true);
+    });
+
+    test("the receipt ends with a barcode of the site, a link", () => {
+        const html = toHtml(model(v60), { layout: "receipt" });
+        expect(html).toContain('<a class="brew-barcode" href="https://brewlang.github.io" aria-label="brewlang.github.io"><svg');
+        expect(html.endsWith("</a></article>")).toBe(true);
+        expect(toHtml(model(v60))).not.toContain("brew-barcode");
+    });
+
+    test("the chart layout draws the water over time, others do not", () => {
+        const html = toHtml(model(v60), { layout: "chart" });
+        expect(html).toContain('<svg class="brew-chart"');
+        expect(html).toContain('<span class="brew-chart-total">250 g</span>');
+        expect(html).toContain('<span class="brew-chart-tick brew-chart-end">3:00</span>');
+        expect(html).toContain('<span class="brew-chart-tick" style="left:25%">0:45</span>');
+        expect(html.indexOf("brew-chart")).toBeLessThan(html.indexOf('class="brew-steps"'));
+        expect(toHtml(model(v60), { layout: "poster" })).not.toContain("<svg");
+        expect(toHtml(model("@FrenchPress 30g 500g 95°C\n500g"), { layout: "chart" })).not.toContain("<svg");
     });
 
     test("theme and signature", () => {
