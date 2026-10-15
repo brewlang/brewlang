@@ -172,6 +172,10 @@
   border-bottom: 1px solid var(--brew-rule-soft);
   align-items: start;
 }
+/* The last step has no rule: the target or the foot below draws its own */
+.brew-step:last-child {
+  border-bottom: 0;
+}
 .brew-time {
   font: 600 16px var(--brew-font-mono);
   font-variant-numeric: tabular-nums;
@@ -418,9 +422,6 @@
 }
 .brew-card[data-layout="minimal"] .brew-steps {
   margin-top: -8px;
-}
-.brew-card[data-layout="minimal"] .brew-step:last-child {
-  border-bottom: 0;
 }
 .brew-card[data-layout="minimal"] .brew-target {
   font-size: 15px;
